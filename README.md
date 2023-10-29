@@ -1,2 +1,2 @@
-# CSC-Installer
-My system cleaner installer + uninstaller
+# CSC Installer
+It installs and adds shortcuts and icons to the cleaners
