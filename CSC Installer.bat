@@ -1,6 +1,7 @@
+@echo off
 rem MIT License
 
-rem Copyright (c) 2023 Chinchill
+rem Copyright (c) 2025 Chinchill
 
 rem Permission is hereby granted, free of charge, to any person obtaining a copy
 rem of this software and associated documentation files (the "Software"), to deal
@@ -20,35 +21,27 @@ rem LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM
 rem OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 rem SOFTWARE.
 
-@echo off
-MODE 100,20
-title CSC Installer v1.4
+rem Start
+cls
+title CSC Installer v1.5
 color b
 echo Welcome %USERNAME%!
-timeout /t 1 >nul
 echo.
 
 :choose_version
-echo Select the version to install:
-echo 1. Normal (full)
-echo 2. Lite
-echo 3. Uninstall
+echo Select an option:
+echo 1. Install (Lite)
+echo 2. Uninstall
 set /p version_choice=Choice [1/2]: 
 cls
 if "%version_choice%"=="1" (
-    set "SOURCE_URL=https://github.com/Chinchillus/CSC/releases/latest/download/csc.bat"
-    set "DESTINATION_FILE=%APPDATA%\ChinchillScripts\csc.bat"
-    set "SHORTCUT_NAME=CSC"
-) else if "%version_choice%"=="2" (
     set "SOURCE_URL=https://github.com/Chinchillus/CSC-Lite/releases/latest/download/CSC-Lite.bat"
     set "DESTINATION_FILE=%APPDATA%\ChinchillScripts\CSC-Lite.bat"
     set "SHORTCUT_NAME=CSC Lite"
-) else if "%version_choice%"=="3" (
+) else if "%version_choice%"=="2" (
 	rd /s /q %APPDATA%\ChinchillScripts
 	del /f /s /q "%USERPROFILE%\Desktop\CSC Lite.lnk"
-	del /f /s /q "%USERPROFILE%\Desktop\CSC.lnk" 
 	del /f /s /q "%APPDATA%\Microsoft\Windows\Start Menu\Programs\CSC Lite.lnk"
-	del /f /s /q "%APPDATA%\Microsoft\Windows\Start Menu\Programs\CSC.lnk"
 	goto uninstalled
 ) else (
     echo Invalid choice. Select 1 or 2.
@@ -70,7 +63,7 @@ if not exist "%INSTALL_DIR%" (
     mkdir "%INSTALL_DIR%"
 )
 
-set "ICON_URL=https://raw.githubusercontent.com/Chinchillus/CSC/main/Icon.ico"
+set "ICON_URL=https://github.com/Chinchillus/CSC-Installer/blob/c73e73a403f3cea80de62f4689fa4895e82a4eda/Icon.ico"
 set "ICON_FILE=%INSTALL_DIR%\Icon.ico"
 
 powershell.exe -Command "(New-Object System.Net.WebClient).DownloadFile('%SOURCE_URL%', '%DESTINATION_FILE%')"
@@ -87,12 +80,12 @@ powershell.exe -Command "$WshShell = New-Object -ComObject WScript.Shell; $Short
 
 echo Shortcut created at start menu and desktop.
 echo.
-echo %SHORTCUT_NAME% installed succesfully!
+echo %SHORTCUT_NAME% installed successfully!
 echo.
 timeout /t 4 >nul
 exit
 :uninstalled
-echo Removed succesfully!
+echo Removed successfully!
 echo Exiting...
 timeout /t 2 >nul
 exit
